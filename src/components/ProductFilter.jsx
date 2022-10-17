@@ -3,7 +3,7 @@ import {AiOutlineSearch} from 'react-icons/ai'
 import {AiFillStar} from 'react-icons/ai'
 import {RiMoneyDollarCircleLine} from 'react-icons/ri'
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {applyFilters} from '../features/products/productsSlice'
 
 const ProductFilter = () => {
@@ -18,6 +18,7 @@ const ProductFilter = () => {
     jewelery: true,
     electronics: true,
   })
+  const {products} = useSelector((state) => state.products)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -80,8 +81,15 @@ const ProductFilter = () => {
         <div className='mt-4'>
           <h4 className='text-[18px] font-medium text-blackGray'>Search keyword</h4>
           <div className='flex box-content flex-row gap-2 mt-1'>
-            <input placeholder='Type a word' className='border-[1px] px-1 border-gray ' type="text" />
-            <button className='bg-lightBlue px-2 py-2 rounded-md ' onClick={filterByNameHandler}>
+            <input list="products-list" placeholder='Type a word' className='border-[1px] px-1 border-gray text-[15px] py-[6px]' type="search" />
+            <datalist id='products-list'>
+              {
+                products.map((product)=>(
+                  <option key={product.id} value={product.title}></option>
+                ))
+              }
+            </datalist>
+            <button className='hidden bg-lightBlue px-2 py-2 rounded-md ' onClick={filterByNameHandler}>
               <AiOutlineSearch />
             </button>
           </div>
