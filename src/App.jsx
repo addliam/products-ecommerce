@@ -7,8 +7,6 @@ function App() {
     <div>
       <Header />
       <ProductsMain />
-      APP
-      
     </div>
   )
 }
